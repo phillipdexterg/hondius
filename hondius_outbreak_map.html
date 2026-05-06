@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_2805219d0e9f5a6b75bd5d8e74c1f521 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="
+position: fixed; bottom: 35px; left: 35px; width: 330px; z-index: 9999;
+background-color: white; border: 2px solid grey; border-radius: 8px;
+padding: 10px; font-size: 13px;">
+<b>MV Hondius outbreak map legend</b><br>
+<span style="color: blue;">●</span> Ship stop / inhabited port<br>
+<span style="color: gray;">●</span> Uninhabited or research-only area<br>
+<span style="color: red;">●</span> Case disembarkation / fatality travel node<br>
+<span style="color: orange;">●</span> Medical evacuation / suspected-confirmed treatment node<br>
+<span style="color: purple;">●</span> Planned receiving or monitoring node<br>
+<hr>
+Solid line = approximate ship route<br>
+Dashed line = air evacuation / return / planned transfer
+</div>
+    
+            <div class="folium-map" id="map_2805219d0e9f5a6b75bd5d8e74c1f521" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_2805219d0e9f5a6b75bd5d8e74c1f521 = L.map(
+                "map_2805219d0e9f5a6b75bd5d8e74c1f521",
+                {
+                    center: [-20.0, -20.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 3,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b0288f4d114c5205231960e8241b9f70 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b0288f4d114c5205231960e8241b9f70.addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var marker_87421a91fe63ff99eb318ff58ddf0492 = L.marker(
+                [-54.8019, -68.303],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_724ecc973c6d0fb26c0859f26f9ffd59 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_818c6cacb6c94f743acc8bb8154f73d5 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_a81baf6b648c8400c8ec58b50c986361 = $(`<div id="html_a81baf6b648c8400c8ec58b50c986361" style="width: 100.0%; height: 100.0%;">     <b>Ushuaia / Tierra del Fuego, Argentina</b><br>     <b>Date:</b> 2026-03-20 and 2026-04-01<br>     <b>Type:</b> ship_stop_inhabited<br>     <b>Notes:</b> Boarding/departure area. Passengers boarded March 20; ship returned and set sail north again April 1.<br>     <b>Community exposure note:</b> Inhabited port city; also possible pre-boarding exposure area mentioned in reports.     </div>`)[0];
+                popup_818c6cacb6c94f743acc8bb8154f73d5.setContent(html_a81baf6b648c8400c8ec58b50c986361);
+            
+        
+
+        marker_87421a91fe63ff99eb318ff58ddf0492.bindPopup(popup_818c6cacb6c94f743acc8bb8154f73d5)
+        ;
+
+        
+    
+    
+            marker_87421a91fe63ff99eb318ff58ddf0492.bindTooltip(
+                `<div>
+                     Ushuaia / Tierra del Fuego, Argentina
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_87421a91fe63ff99eb318ff58ddf0492.setIcon(icon_724ecc973c6d0fb26c0859f26f9ffd59);
+            
+    
+            var marker_bbdeca091dae542b41848bf12cbbe373 = L.marker(
+                [-64.825, -63.5],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_3c58a1d5425ed5194cebfa5fe5ccd73e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_453e704003c3c8f307be456aaa0c89f6 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_169189db162d570ddba01dbc04deed79 = $(`<div id="html_169189db162d570ddba01dbc04deed79" style="width: 100.0%; height: 100.0%;">     <b>Antarctic region / mainland Antarctica</b><br>     <b>Date:</b> 2026-03-21 to 2026-03-31 (approx)<br>     <b>Type:</b> ship_stop_uninhabited_or_research<br>     <b>Notes:</b> Expedition excursions in Antarctic region; exact landing sites not specified in public reports.<br>     <b>Community exposure note:</b> No permanent civilian population; research stations possible, but no specific reported community exposure.     </div>`)[0];
+                popup_453e704003c3c8f307be456aaa0c89f6.setContent(html_169189db162d570ddba01dbc04deed79);
+            
+        
+
+        marker_bbdeca091dae542b41848bf12cbbe373.bindPopup(popup_453e704003c3c8f307be456aaa0c89f6)
+        ;
+
+        
+    
+    
+            marker_bbdeca091dae542b41848bf12cbbe373.bindTooltip(
+                `<div>
+                     Antarctic region / mainland Antarctica
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bbdeca091dae542b41848bf12cbbe373.setIcon(icon_3c58a1d5425ed5194cebfa5fe5ccd73e);
+            
+    
+            var marker_83a749e05fb4476167b36eeb71a93772 = L.marker(
+                [-54.2811, -36.5092],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_5e05fadd05beb55fa4536b4156d17245 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0f2fee5b47460ddb8ae581c12488f663 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_7bf32009f6067ffb2e285757c4652501 = $(`<div id="html_7bf32009f6067ffb2e285757c4652501" style="width: 100.0%; height: 100.0%;">     <b>South Georgia</b><br>     <b>Date:</b> early April; first illness 2026-04-06<br>     <b>Type:</b> ship_stop_small_population<br>     <b>Notes:</b> WHO lists South Georgia in the route. First passenger became ill April 6 while aboard.<br>     <b>Community exposure note:</b> Very small resident/research/government presence; not a normal large civilian port.     </div>`)[0];
+                popup_0f2fee5b47460ddb8ae581c12488f663.setContent(html_7bf32009f6067ffb2e285757c4652501);
+            
+        
+
+        marker_83a749e05fb4476167b36eeb71a93772.bindPopup(popup_0f2fee5b47460ddb8ae581c12488f663)
+        ;
+
+        
+    
+    
+            marker_83a749e05fb4476167b36eeb71a93772.bindTooltip(
+                `<div>
+                     South Georgia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_83a749e05fb4476167b36eeb71a93772.setIcon(icon_5e05fadd05beb55fa4536b4156d17245);
+            
+    
+            var marker_e7e6d4e16d3067fee95fe22d677c9800 = L.marker(
+                [-37.421, -12.48],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_d8a2e69ddc6090e98d3052ef880893db = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9a9e63c1178c91b1f5bf2dac1fe285c6 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_a723c4d337a708072940b1108a69b1d9 = $(`<div id="html_a723c4d337a708072940b1108a69b1d9" style="width: 100.0%; height: 100.0%;">     <b>Nightingale Island</b><br>     <b>Date:</b> April 2026 (exact public date not found)<br>     <b>Type:</b> ship_stop_uninhabited<br>     <b>Notes:</b> WHO lists Nightingale Island in the route.<br>     <b>Community exposure note:</b> Uninhabited island in Tristan da Cunha group; low direct community exposure unless contact with visiting teams.     </div>`)[0];
+                popup_9a9e63c1178c91b1f5bf2dac1fe285c6.setContent(html_a723c4d337a708072940b1108a69b1d9);
+            
+        
+
+        marker_e7e6d4e16d3067fee95fe22d677c9800.bindPopup(popup_9a9e63c1178c91b1f5bf2dac1fe285c6)
+        ;
+
+        
+    
+    
+            marker_e7e6d4e16d3067fee95fe22d677c9800.bindTooltip(
+                `<div>
+                     Nightingale Island
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e7e6d4e16d3067fee95fe22d677c9800.setIcon(icon_d8a2e69ddc6090e98d3052ef880893db);
+            
+    
+            var marker_902dab908fe62d3e7e26bb67bd5f2c91 = L.marker(
+                [-37.1052, -12.2777],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_9f08cddf77caf72316f2dc016f1f49ba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8550de42b41b230421962805b7e183cf = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c2d6f0efa1365e1af0ce365a4d74c401 = $(`<div id="html_c2d6f0efa1365e1af0ce365a4d74c401" style="width: 100.0%; height: 100.0%;">     <b>Tristan da Cunha</b><br>     <b>Date:</b> around 2026-04-13 to 2026-04-16<br>     <b>Type:</b> ship_stop_inhabited_remote<br>     <b>Notes:</b> Remote inhabited island stop reported in route/timeline.<br>     <b>Community exposure note:</b> Inhabited community; possible exposure concern depends on whether passengers/crew went ashore and contact duration.     </div>`)[0];
+                popup_8550de42b41b230421962805b7e183cf.setContent(html_c2d6f0efa1365e1af0ce365a4d74c401);
+            
+        
+
+        marker_902dab908fe62d3e7e26bb67bd5f2c91.bindPopup(popup_8550de42b41b230421962805b7e183cf)
+        ;
+
+        
+    
+    
+            marker_902dab908fe62d3e7e26bb67bd5f2c91.bindTooltip(
+                `<div>
+                     Tristan da Cunha
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_902dab908fe62d3e7e26bb67bd5f2c91.setIcon(icon_9f08cddf77caf72316f2dc016f1f49ba);
+            
+    
+            var marker_b818f81d4f7b9bfa9af4309aad8379d8 = L.marker(
+                [-15.965, -5.7089],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_b3f95a8db5b00d920d7d60c5d9d573e5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9668cf16f01c808658c74e87989264d3 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_e1277329e1cfaf12bc1378e253337466 = $(`<div id="html_e1277329e1cfaf12bc1378e253337466" style="width: 100.0%; height: 100.0%;">     <b>Saint Helena</b><br>     <b>Date:</b> 2026-04-24<br>     <b>Type:</b> ship_stop_inhabited_case_disembarkation<br>     <b>Notes:</b> Dutch man's body and his symptomatic wife disembarked here; British man saw ship doctor same day.<br>     <b>Community exposure note:</b> Inhabited island and critical contact-tracing location because a symptomatic person left the ship here.     </div>`)[0];
+                popup_9668cf16f01c808658c74e87989264d3.setContent(html_e1277329e1cfaf12bc1378e253337466);
+            
+        
+
+        marker_b818f81d4f7b9bfa9af4309aad8379d8.bindPopup(popup_9668cf16f01c808658c74e87989264d3)
+        ;
+
+        
+    
+    
+            marker_b818f81d4f7b9bfa9af4309aad8379d8.bindTooltip(
+                `<div>
+                     Saint Helena
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b818f81d4f7b9bfa9af4309aad8379d8.setIcon(icon_b3f95a8db5b00d920d7d60c5d9d573e5);
+            
+    
+            var marker_f92794b5fd0cda5d658ff0098fc330b0 = L.marker(
+                [-26.1337, 28.242],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_b8f5ab1fb5e72d969eb6cd76fd94fe69 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5caa36f4a15e624758aa3c650e5404ff = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_8e2a62829c2f545e9c939e35cd34d8c9 = $(`<div id="html_8e2a62829c2f545e9c939e35cd34d8c9" style="width: 100.0%; height: 100.0%;">     <b>Johannesburg, South Africa (O.R. Tambo / hospital)</b><br>     <b>Date:</b> 2026-04-25 to 2026-04-26<br>     <b>Type:</b> air_travel_case_destination<br>     <b>Notes:</b> Dutch woman flew from Saint Helena route to South Africa with her husband's body, worsened during travel, collapsed at O.R. Tambo, and died the next day.<br>     <b>Community exposure note:</b> Inhabited major metro and airport; flight contacts were reportedly being traced.     </div>`)[0];
+                popup_5caa36f4a15e624758aa3c650e5404ff.setContent(html_8e2a62829c2f545e9c939e35cd34d8c9);
+            
+        
+
+        marker_f92794b5fd0cda5d658ff0098fc330b0.bindPopup(popup_5caa36f4a15e624758aa3c650e5404ff)
+        ;
+
+        
+    
+    
+            marker_f92794b5fd0cda5d658ff0098fc330b0.bindTooltip(
+                `<div>
+                     Johannesburg, South Africa (O.R. Tambo / hospital)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f92794b5fd0cda5d658ff0098fc330b0.setIcon(icon_b8f5ab1fb5e72d969eb6cd76fd94fe69);
+            
+    
+            var marker_00410282333333e8999468f6e1a61d7e = L.marker(
+                [-7.9467, -14.3559],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_a1e472cc8087e360e71330bcd51a0311 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2b57accdd777d57d03f04a5c5a3e80be = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_add55c3711f31c9fb904f92024dd98bc = $(`<div id="html_add55c3711f31c9fb904f92024dd98bc" style="width: 100.0%; height: 100.0%;">     <b>Ascension Island</b><br>     <b>Date:</b> 2026-04-26 to 2026-04-27<br>     <b>Type:</b> ship_stop_inhabited_medical_evacuation<br>     <b>Notes:</b> British man worsened here and was medically evacuated to South Africa on April 27.<br>     <b>Community exposure note:</b> Inhabited island/airfield support location; exposure concern mostly medical/evacuation contacts.     </div>`)[0];
+                popup_2b57accdd777d57d03f04a5c5a3e80be.setContent(html_add55c3711f31c9fb904f92024dd98bc);
+            
+        
+
+        marker_00410282333333e8999468f6e1a61d7e.bindPopup(popup_2b57accdd777d57d03f04a5c5a3e80be)
+        ;
+
+        
+    
+    
+            marker_00410282333333e8999468f6e1a61d7e.bindTooltip(
+                `<div>
+                     Ascension Island
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_00410282333333e8999468f6e1a61d7e.setIcon(icon_a1e472cc8087e360e71330bcd51a0311);
+            
+    
+            var marker_9f74cc6d7fb2e3ef557d3243594e5552 = L.marker(
+                [14.933, -23.5133],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_78f5f09b212545316e07ab5772998dc9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cf0c00503dfa8cb440c0939dd37f848b = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_b7c3a2459e663593579ebdf805c19ff4 = $(`<div id="html_b7c3a2459e663593579ebdf805c19ff4" style="width: 100.0%; height: 100.0%;">     <b>Praia, Santiago, Cape Verde</b><br>     <b>Date:</b> 2026-05-03 onward<br>     <b>Type:</b> ship_offshore_medical_response<br>     <b>Notes:</b> Ship reached Cape Verde waters; medical teams evaluated patients, collected samples; ship held offshore near Praia.<br>     <b>Community exposure note:</b> Inhabited capital city nearby, but reports say docking/disembarkation was not permitted initially.     </div>`)[0];
+                popup_cf0c00503dfa8cb440c0939dd37f848b.setContent(html_b7c3a2459e663593579ebdf805c19ff4);
+            
+        
+
+        marker_9f74cc6d7fb2e3ef557d3243594e5552.bindPopup(popup_cf0c00503dfa8cb440c0939dd37f848b)
+        ;
+
+        
+    
+    
+            marker_9f74cc6d7fb2e3ef557d3243594e5552.bindTooltip(
+                `<div>
+                     Praia, Santiago, Cape Verde
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9f74cc6d7fb2e3ef557d3243594e5552.setIcon(icon_78f5f09b212545316e07ab5772998dc9);
+            
+    
+            var marker_9649e7444978039cd70a560c91736d35 = L.marker(
+                [47.3769, 8.5417],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_d7008e2a819850a7ee99c0905b0f7e25 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_69b2307930d3e5467627b38a11b3688c = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_0953d4921220ad140b45087820a21472 = $(`<div id="html_0953d4921220ad140b45087820a21472" style="width: 100.0%; height: 100.0%;">     <b>Zurich, Switzerland</b><br>     <b>Date:</b> reported 2026-05-06<br>     <b>Type:</b> returned_passenger_confirmed_or_suspected<br>     <b>Notes:</b> Reuters reported a Swiss citizen returned home and was being treated in Zurich; counted among suspected/confirmed by WHO reporting cited by Reuters.<br>     <b>Community exposure note:</b> Major inhabited city; public risk depends on travel contacts and public-health follow-up.     </div>`)[0];
+                popup_69b2307930d3e5467627b38a11b3688c.setContent(html_0953d4921220ad140b45087820a21472);
+            
+        
+
+        marker_9649e7444978039cd70a560c91736d35.bindPopup(popup_69b2307930d3e5467627b38a11b3688c)
+        ;
+
+        
+    
+    
+            marker_9649e7444978039cd70a560c91736d35.bindTooltip(
+                `<div>
+                     Zurich, Switzerland
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9649e7444978039cd70a560c91736d35.setIcon(icon_d7008e2a819850a7ee99c0905b0f7e25);
+            
+    
+            var marker_7879dddc4d3560414c222dba9137205a = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_07e97ac507983dace874e0ba776ef5ea = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9e8fcde197df68823a3c757bb0adea98 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_00f36ad71b739ec955794648b065788b = $(`<div id="html_00f36ad71b739ec955794648b065788b" style="width: 100.0%; height: 100.0%;">     <b>United Kingdom</b><br>     <b>Date:</b> reported 2026-05-06<br>     <b>Type:</b> returned_passengers_monitoring<br>     <b>Notes:</b> UK health authorities advised two returnees from the ship to self-isolate; no British citizens onboard had reported symptoms per Reuters.<br>     <b>Community exposure note:</b> Add as returnee-monitoring node rather than confirmed infection node.     </div>`)[0];
+                popup_9e8fcde197df68823a3c757bb0adea98.setContent(html_00f36ad71b739ec955794648b065788b);
+            
+        
+
+        marker_7879dddc4d3560414c222dba9137205a.bindPopup(popup_9e8fcde197df68823a3c757bb0adea98)
+        ;
+
+        
+    
+    
+            marker_7879dddc4d3560414c222dba9137205a.bindTooltip(
+                `<div>
+                     United Kingdom
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7879dddc4d3560414c222dba9137205a.setIcon(icon_07e97ac507983dace874e0ba776ef5ea);
+            
+    
+            var marker_0e473e4fd593f4c6f6523c4f888a4786 = L.marker(
+                [52.3676, 4.9041],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_c4a7e0da57a8eeb900b814072af2f5a7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_97f58c8d8a5ba190f6328f7d1156196d = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f9400693087c17b03c58f384573f329b = $(`<div id="html_f9400693087c17b03c58f384573f329b" style="width: 100.0%; height: 100.0%;">     <b>Netherlands</b><br>     <b>Date:</b> reported 2026-05-06<br>     <b>Type:</b> medical_evacuation_planned_or_repatriation<br>     <b>Notes:</b> Guardian reported a British and a Dutch crew member were to be evacuated via Cape Verde to the Netherlands for urgent care.<br>     <b>Community exposure note:</b> Medical transfer node; route/details may change.     </div>`)[0];
+                popup_97f58c8d8a5ba190f6328f7d1156196d.setContent(html_f9400693087c17b03c58f384573f329b);
+            
+        
+
+        marker_0e473e4fd593f4c6f6523c4f888a4786.bindPopup(popup_97f58c8d8a5ba190f6328f7d1156196d)
+        ;
+
+        
+    
+    
+            marker_0e473e4fd593f4c6f6523c4f888a4786.bindTooltip(
+                `<div>
+                     Netherlands
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0e473e4fd593f4c6f6523c4f888a4786.setIcon(icon_c4a7e0da57a8eeb900b814072af2f5a7);
+            
+    
+            var marker_70e8b3ebe1e2dfa3721a53a0570e5f9d = L.marker(
+                [28.2916, -16.6291],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var icon_468f28e2aa97e8adcc83580ca269afab = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e6fd82c863ff5ae383ba440c706ac85c = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_fa9c240d2c1cec1a1e1e3e0984d7d705 = $(`<div id="html_fa9c240d2c1cec1a1e1e3e0984d7d705" style="width: 100.0%; height: 100.0%;">     <b>Tenerife / Canary Islands, Spain</b><br>     <b>Date:</b> expected around 2026-05-08 to 2026-05-10<br>     <b>Type:</b> planned_docking_screening<br>     <b>Notes:</b> Spain said the ship would be received in the Canary Islands within three or four days after May 5/6 reporting.<br>     <b>Community exposure note:</b> Planned receiving/screening location; not yet necessarily an exposure site at time of reporting.     </div>`)[0];
+                popup_e6fd82c863ff5ae383ba440c706ac85c.setContent(html_fa9c240d2c1cec1a1e1e3e0984d7d705);
+            
+        
+
+        marker_70e8b3ebe1e2dfa3721a53a0570e5f9d.bindPopup(popup_e6fd82c863ff5ae383ba440c706ac85c)
+        ;
+
+        
+    
+    
+            marker_70e8b3ebe1e2dfa3721a53a0570e5f9d.bindTooltip(
+                `<div>
+                     Tenerife / Canary Islands, Spain
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_70e8b3ebe1e2dfa3721a53a0570e5f9d.setIcon(icon_468f28e2aa97e8adcc83580ca269afab);
+            
+    
+            var poly_line_7b8671eb580e74d7d1edeea5b7ada14c = L.polyline(
+                [[-54.8019, -68.303], [-64.825, -63.5], [-54.2811, -36.5092], [-37.421, -12.48], [-37.1052, -12.2777], [-15.965, -5.7089], [-7.9467, -14.3559], [14.933, -23.5133], [28.2916, -16.6291]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            poly_line_7b8671eb580e74d7d1edeea5b7ada14c.bindTooltip(
+                `<div>
+                     Approximate MV Hondius ship route
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8062b7709981b80c75dd810c3c0b0b37 = L.marker(
+                [-54.8019, -68.303],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_69b0ff9eadde96e9006641d10079adbf = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    1\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_8062b7709981b80c75dd810c3c0b0b37.bindTooltip(
+                `<div>
+                     Stop 1: Ushuaia / Tierra del Fuego, Argentina
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8062b7709981b80c75dd810c3c0b0b37.setIcon(div_icon_69b0ff9eadde96e9006641d10079adbf);
+            
+    
+            var marker_e9d0c52d98ca3082cb4f745975c0a64b = L.marker(
+                [-64.825, -63.5],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_c09312e51361ded64f8db242ac616660 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    2\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_e9d0c52d98ca3082cb4f745975c0a64b.bindTooltip(
+                `<div>
+                     Stop 2: Antarctic region / mainland Antarctica
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e9d0c52d98ca3082cb4f745975c0a64b.setIcon(div_icon_c09312e51361ded64f8db242ac616660);
+            
+    
+            var marker_e2226a5037dfbc033f16945ce8f0c270 = L.marker(
+                [-54.2811, -36.5092],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_0577f65aa31765f0518de9b93487db35 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    3\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_e2226a5037dfbc033f16945ce8f0c270.bindTooltip(
+                `<div>
+                     Stop 3: South Georgia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e2226a5037dfbc033f16945ce8f0c270.setIcon(div_icon_0577f65aa31765f0518de9b93487db35);
+            
+    
+            var marker_553ba3f0b20f653c8ce07d78d1936958 = L.marker(
+                [-37.421, -12.48],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_89b5c011f2b47d9bcfc1c9473332dab8 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    4\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_553ba3f0b20f653c8ce07d78d1936958.bindTooltip(
+                `<div>
+                     Stop 4: Nightingale Island
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_553ba3f0b20f653c8ce07d78d1936958.setIcon(div_icon_89b5c011f2b47d9bcfc1c9473332dab8);
+            
+    
+            var marker_0d0914899e994af90fe0cc42a931e11a = L.marker(
+                [-37.1052, -12.2777],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_ac8d4431fb3ebdb8e163671511691a8d = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    5\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_0d0914899e994af90fe0cc42a931e11a.bindTooltip(
+                `<div>
+                     Stop 5: Tristan da Cunha
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0d0914899e994af90fe0cc42a931e11a.setIcon(div_icon_ac8d4431fb3ebdb8e163671511691a8d);
+            
+    
+            var marker_458816e0905ce3f485e299e3f420a97a = L.marker(
+                [-15.965, -5.7089],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_6920199ec13c8927008da881b7351d0b = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    6\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_458816e0905ce3f485e299e3f420a97a.bindTooltip(
+                `<div>
+                     Stop 6: Saint Helena
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_458816e0905ce3f485e299e3f420a97a.setIcon(div_icon_6920199ec13c8927008da881b7351d0b);
+            
+    
+            var marker_f87f9f0aa2da15af47bbc095b6ccc881 = L.marker(
+                [-7.9467, -14.3559],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_f3785f1c0a2a319436bf3872c4c51e45 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    7\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_f87f9f0aa2da15af47bbc095b6ccc881.bindTooltip(
+                `<div>
+                     Stop 7: Ascension Island
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f87f9f0aa2da15af47bbc095b6ccc881.setIcon(div_icon_f3785f1c0a2a319436bf3872c4c51e45);
+            
+    
+            var marker_19abed1a8db63e0d388182ea3c15be9b = L.marker(
+                [14.933, -23.5133],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_8da26464aa0f7a1a9f8454966c753adc = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    8\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_19abed1a8db63e0d388182ea3c15be9b.bindTooltip(
+                `<div>
+                     Stop 8: Praia, Santiago, Cape Verde
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_19abed1a8db63e0d388182ea3c15be9b.setIcon(div_icon_8da26464aa0f7a1a9f8454966c753adc);
+            
+    
+            var marker_481a95d39114b960bb2e77cce0828df0 = L.marker(
+                [28.2916, -16.6291],
+                {
+}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            var div_icon_872998de4fcf4bed8c62ad5048658359 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; background: white;\n                    border: 1px solid black; border-radius: 10px; padding: 2px 5px;\"\u003e\n                    9\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_481a95d39114b960bb2e77cce0828df0.bindTooltip(
+                `<div>
+                     Stop 9: Tenerife / Canary Islands, Spain
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_481a95d39114b960bb2e77cce0828df0.setIcon(div_icon_872998de4fcf4bed8c62ad5048658359);
+            
+    
+            var poly_line_c809787141ccad1441bd2b66a255c721 = L.polyline(
+                [[-15.965, -5.7089], [-26.1337, 28.242]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": "7, 7", "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            poly_line_c809787141ccad1441bd2b66a255c721.bindTooltip(
+                `<div>
+                     Dutch woman + body transfer / flight contact tracing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_2e4f9924d438ba1b84b1076ba965699b = L.polyline(
+                [[-7.9467, -14.3559], [-26.1337, 28.242]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": "7, 7", "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            poly_line_2e4f9924d438ba1b84b1076ba965699b.bindTooltip(
+                `<div>
+                     British passenger medical evacuation
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5a05b8450c2901dbde02f6d909a785ea = L.polyline(
+                [[14.933, -23.5133], [52.3676, 4.9041]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": "7, 7", "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            poly_line_5a05b8450c2901dbde02f6d909a785ea.bindTooltip(
+                `<div>
+                     reported crew medical evacuation route via Cape Verde
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5bafc7daae6f5645cf1d8a0b8b77a275 = L.polyline(
+                [[14.933, -23.5133], [47.3769, 8.5417]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": "7, 7", "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            poly_line_5bafc7daae6f5645cf1d8a0b8b77a275.bindTooltip(
+                `<div>
+                     returned Swiss patient / treatment node
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d9669d73a385c81acdf7e7631c5299ba = L.polyline(
+                [[14.933, -23.5133], [51.5074, -0.1278]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": "7, 7", "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            poly_line_d9669d73a385c81acdf7e7631c5299ba.bindTooltip(
+                `<div>
+                     two UK returnees advised to self-isolate
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_15d7542d83d11494203f24a6310f97e1 = L.polyline(
+                [[14.933, -23.5133], [28.2916, -16.6291]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": "7, 7", "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
+        
+    
+            poly_line_15d7542d83d11494203f24a6310f97e1.bindTooltip(
+                `<div>
+                     planned ship reception/screening
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
