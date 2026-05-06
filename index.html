@@ -316,6 +316,16 @@
       icon: "plus-sign",
       notes: "A 39-year-old Bariloche police officer died from hantavirus in February 2026 after presumed exposure during trekking near Cascada Santa Ana, close to the Chilean border.",
       exposure: "Regional context node for an earlier fatal Andean-region case; coordinates are approximate."
+    },
+    {
+      name: "Madrid, Spain",
+      lat: 40.4168,
+      lon: -3.7038,
+      kind: "quarantine_distribution_node",
+      date: "expected after Tenerife arrival (mid-May 2026)",
+      icon: "plus-sign",
+      notes: "Spanish authorities said passengers from the MV Hondius would be transported from Tenerife to Madrid, where Spanish nationals would undergo quarantine while others may be repatriated to their home countries.",
+      exposure: "Controlled quarantine and transit environment; not a confirmed infection origin but a high-contact redistribution hub depending on passenger movement."
     }
   ];
 
@@ -417,6 +427,11 @@
     { color: "darkred", weight: 2, opacity: 0.65, dashArray: "3, 6" }
   );
 
+  addPolyline(
+    [[28.2916, -16.6291], [40.4168, -3.7038]],
+    "Planned quarantine transfer: Tenerife → Madrid (Spanish passengers)",
+    { color: "purple", weight: 2, opacity: 0.7, dashArray: "5, 7" }
+  );
   // No fixed legend box, so the map stays usable on iPhone.
 </script>
 </html>
