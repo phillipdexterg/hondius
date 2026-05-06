@@ -132,6 +132,12 @@
     return line;
   }
 
+  // Key fixed coordinates
+  var PRAIA_OFFSHORE = [14.9000, -23.5400];   // MV Hondius held offshore near Praia
+  var PRAIA_AIRPORT  = [14.9245, -23.4935];   // Nelson Mandela International Airport
+  var SOUTH_AFRICA   = [-26.1337, 28.2420];   // O.R. Tambo / Johannesburg area
+  var NETHERLANDS    = [52.3676, 4.9041];     // Netherlands node
+
   var points = [
     {
       name: "Ushuaia / Tierra del Fuego, Argentina",
@@ -189,12 +195,12 @@
     },
     {
       name: "Johannesburg, South Africa (O.R. Tambo / hospital)",
-      lat: -26.1337,
-      lon: 28.2420,
+      lat: SOUTH_AFRICA[0],
+      lon: SOUTH_AFRICA[1],
       kind: "air_travel_case_destination_fatality",
       date: "2026-04-25 to 2026-04-26",
-      notes: "Dutch woman flew from Saint Helena route to South Africa with her husband's body, worsened during travel, collapsed at O.R. Tambo, and died the next day.",
-      exposure: "Major airport and metro area; flight contacts were reportedly being traced."
+      notes: "Dutch woman flew from Saint Helena route to South Africa with her husband's body, worsened during travel, collapsed at O.R. Tambo, and died the next day. She reportedly briefly boarded a KLM flight to the Netherlands but was removed because of her medical condition.",
+      exposure: "Major airport and metro area; flight contacts and airport/medical contacts were reportedly being traced."
     },
     {
       name: "Ascension Island",
@@ -206,13 +212,22 @@
       exposure: "Inhabited island/airfield support location; exposure concern mostly medical/evacuation contacts."
     },
     {
-      name: "Praia, Santiago, Cape Verde",
-      lat: 14.9330,
-      lon: -23.5133,
+      name: "MV Hondius offshore near Praia, Cape Verde",
+      lat: PRAIA_OFFSHORE[0],
+      lon: PRAIA_OFFSHORE[1],
       kind: "ship_offshore_medical_response",
       date: "2026-05-03 onward",
       notes: "Ship reached Cape Verde waters; medical teams evaluated patients and collected samples; ship was held offshore near Praia.",
-      exposure: "Inhabited capital nearby, but reports say docking/disembarkation was not permitted initially."
+      exposure: "Offshore ship location near an inhabited capital; reports say docking/disembarkation was not permitted initially."
+    },
+    {
+      name: "Praia Airport (Nelson Mandela International), Cape Verde",
+      lat: PRAIA_AIRPORT[0],
+      lon: PRAIA_AIRPORT[1],
+      kind: "medical_evacuation_transfer_node",
+      date: "2026-05-05 to 2026-05-06 (approx)",
+      notes: "Patients were transferred off MV Hondius near Praia and moved via boat/ground transport to the airport for medical evacuation flights to Europe.",
+      exposure: "High-contact transfer environment involving medical teams, transport crews, and airport personnel during evacuation operations."
     },
     {
       name: "Zurich, Switzerland",
@@ -234,12 +249,12 @@
     },
     {
       name: "Netherlands",
-      lat: 52.3676,
-      lon: 4.9041,
+      lat: NETHERLANDS[0],
+      lon: NETHERLANDS[1],
       kind: "medical_evacuation_planned_or_repatriation",
       date: "reported 2026-05-06",
-      notes: "Reports said a British and a Dutch crew member were to be evacuated via Cape Verde to the Netherlands for urgent care.",
-      exposure: "Medical transfer node; route/details may change."
+      notes: "Reports said a British and a Dutch crew member were to be evacuated via Cape Verde to the Netherlands for urgent care. Separately, the Dutch woman in South Africa reportedly briefly boarded a KLM flight to the Netherlands but was removed before departure due to her medical condition.",
+      exposure: "Medical transfer and attempted-travel node; route details vary by patient."
     },
     {
       name: "Tenerife / Canary Islands, Spain",
@@ -249,17 +264,6 @@
       date: "expected around 2026-05-08 to 2026-05-10",
       notes: "Spain said the ship would be received in the Canary Islands within several days after May 5/6 reporting.",
       exposure: "Planned receiving/screening location; not necessarily an exposure site at time of reporting."
-    },
-    {
-
-      name: "Praia Airport (Nelson Mandela International), Cape Verde",
-      lat: 14.9245,
-      lon: -23.4935,
-      kind: "medical_evacuation_transfer_node",
-      date: "2026-05-05 to 2026-05-06 (approx)",
-      notes: "Patients were transferred off MV Hondius near Praia and moved via boat/ground transport to the airport for medical evacuation flights to Europe.",
-      exposure: "High-contact transfer environment involving medical teams, transport crews, and airport personnel during evacuation operations."
-
     },
 
     // ===== Recent Argentina non-cruise / regional hantavirus reports =====
@@ -326,7 +330,7 @@
     [-37.1052, -12.2777],
     [-15.9650, -5.7089],
     [-7.9467, -14.3559],
-    [14.9330, -23.5133],
+    PRAIA_OFFSHORE,
     [28.2916, -16.6291]
   ];
 
@@ -349,39 +353,54 @@
 
   // Air evacuation / return / planned routes.
   addPolyline(
-    [[-15.9650, -5.7089], [-26.1337, 28.2420]],
-    "Dutch woman + body transfer / flight contact tracing",
+    [[-15.9650, -5.7089], SOUTH_AFRICA],
+    "Dutch woman + body transfer / flight contact tracing: Saint Helena → South Africa",
     { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
   );
 
   addPolyline(
-    [[-7.9467, -14.3559], [-26.1337, 28.2420]],
-    "British passenger medical evacuation",
+    [[-7.9467, -14.3559], SOUTH_AFRICA],
+    "British passenger medical evacuation: Ascension → South Africa",
+    { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
+  );
+
+  // Short local transfer: offshore ship → Praia airport.
+  addPolyline(
+    [PRAIA_OFFSHORE, PRAIA_AIRPORT],
+    "Ship offshore near Praia → airport medical transfer",
+    { color: "red", weight: 3, opacity: 0.8, dashArray: "4, 6" }
+  );
+
+  // Evacuation/return routes from Cape Verde, now starting at airport instead of offshore ship point.
+  addPolyline(
+    [PRAIA_AIRPORT, NETHERLANDS],
+    "Reported medical evacuation route: Praia Airport → Netherlands",
     { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
   );
 
   addPolyline(
-    [[14.9330, -23.5133], [52.3676, 4.9041]],
-    "Reported crew medical evacuation route via Cape Verde",
-    { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
-  );
-
-  addPolyline(
-    [[14.9330, -23.5133], [47.3769, 8.5417]],
+    [PRAIA_AIRPORT, [47.3769, 8.5417]],
     "Returned Swiss patient / treatment node",
     { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
   );
 
   addPolyline(
-    [[14.9330, -23.5133], [51.5074, -0.1278]],
+    [PRAIA_AIRPORT, [51.5074, -0.1278]],
     "Two UK returnees advised to self-isolate",
     { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
   );
 
   addPolyline(
-    [[14.9330, -23.5133], [28.2916, -16.6291]],
-    "Planned ship reception/screening",
+    [PRAIA_OFFSHORE, [28.2916, -16.6291]],
+    "Planned ship reception/screening: Cape Verde waters → Canary Islands",
     { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
+  );
+
+  // Attempted but not completed flight: South Africa → Netherlands.
+  addPolyline(
+    [SOUTH_AFRICA, NETHERLANDS],
+    "Attempted KLM flight: South Africa → Netherlands; passenger removed before departure",
+    { color: "#777777", weight: 2, opacity: 0.55, dashArray: "2, 10" }
   );
 
   // Recent Argentina regional/non-cruise case travel history.
