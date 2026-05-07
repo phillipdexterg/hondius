@@ -419,6 +419,11 @@
 
   points.forEach(addMarker);
 
+  var allCoords = points.map(p => [p.lat, p.lon]);
+  map_2805219d0e9f5a6b75bd5d8e74c1f521.fitBounds(allCoords, {
+    padding: [80, 80],   // controls how zoomed out it feels
+    maxZoom: 3           // prevents it from zooming in too much
+  });
   // Approximate MV Hondius ship route.
   var shipRoute = [
     [-54.8019, -68.3030],
