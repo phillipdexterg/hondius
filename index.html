@@ -51,9 +51,9 @@
   var map_2805219d0e9f5a6b75bd5d8e74c1f521 = L.map(
     "map_2805219d0e9f5a6b75bd5d8e74c1f521",
     {
-      center: [-20.0, -20.0],
+      center: [0, 0],
       crs: L.CRS.EPSG3857,
-      zoom: 3,
+      zoom: 2,
       zoomControl: true,
       preferCanvas: false
     }
@@ -283,15 +283,6 @@
       exposure: "Returnee-monitoring node rather than confirmed infection node."
     },
     {
-      name: "Netherlands",
-      lat: NETHERLANDS[0],
-      lon: NETHERLANDS[1],
-      kind: "medical_evacuation_planned_or_repatriation",
-      date: "reported 2026-05-06",
-      notes: "Reports said a British and a Dutch crew member were to be evacuated via Cape Verde to the Netherlands for urgent care. Separately, the Dutch woman in South Africa reportedly briefly boarded a KLM flight to the Netherlands but was removed before departure due to her medical condition.",
-      exposure: "Medical transfer and attempted-travel node; route details vary by patient."
-    },
-    {
       name: "Tenerife / Canary Islands, Spain",
       lat: 28.2916,
       lon: -16.6291,
@@ -484,7 +475,67 @@
   date: "January 2026",
   notes: "Fatal hantavirus case of a 14-year-old boy reported in early January after initial misdiagnosis. Part of broader early-year alerts issued by Argentine authorities.",
   exposure: "Represents early-year hantavirus activity in Buenos Aires Province. Not linked to the MV Hondius outbreak."
-  }
+  },
+  {
+  name: "Quebec, Canada (returnees - general)",
+  lat: 52.9399,
+  lon: -73.5491,
+  kind: "returned_passengers_monitoring",
+  icon: "plus-sign",
+  date: "reported 2026-05-07",
+  notes: "Two passengers linked to the MV Hondius outbreak are reported to be isolating in Quebec.",
+  exposure: "Generalized monitoring node; no confirmed cases publicly reported."
+  },
+  {
+  name: "Ontario, Canada (returnees - general)",
+  lat: 50.0000,
+  lon: -85.0000,
+  kind: "returned_passengers_monitoring",
+  icon: "plus-sign",
+  date: "reported 2026-05-07",
+  notes: "One passenger linked to the MV Hondius outbreak is reported to be isolating in Ontario.",
+  exposure: "Generalized monitoring node; no confirmed cases publicly reported."
+  },
+  {
+  name: "Singapore (monitoring/testing - general)",
+  lat: 1.3521,
+  lon: 103.8198,
+  kind: "returned_passengers_monitoring",
+  icon: "plus-sign",
+  date: "reported 2026-05-07",
+  notes: "Authorities in Singapore reported testing and monitoring related to the MV Hondius outbreak.",
+  exposure: "Generalized monitoring/testing node; no confirmed cases publicly reported."
+  },
+  {
+  name: "Amsterdam UMC (flight attendant contact case), Netherlands",
+  lat: 52.29433,
+  lon: 4.95805,
+  kind: "secondary_contact_monitoring",
+  icon: "plus-sign",
+  date: "reported 2026-05-07",
+  notes: "A KLM flight attendant who had contact in Johannesburg with a Dutch hantavirus patient was admitted here with mild symptoms and placed in isolation for testing.",
+  exposure: "Secondary contact (non-passenger). Represents possible human-to-human transmission under investigation."
+  },
+  {
+  name: "Leiden University Medical Center (LUMC), Netherlands",
+  lat: 52.1594,
+  lon: 4.4828,
+  kind: "confirmed_case",
+  icon: "plus-sign",
+  date: "reported 2026-05-07",
+  notes: "A passenger from the MV Hondius tested positive for hantavirus and is being treated under strict isolation.",
+  exposure: "Confirmed Andes hantavirus infection in a returned passenger."
+  },
+  {
+  name: "Radboud UMC, Nijmegen, Netherlands",
+  lat: 51.8216,
+  lon: 5.8660,
+  kind: "confirmed_case",
+  icon: "plus-sign",
+  date: "reported 2026-05-07",
+  notes: "A second passenger tested positive for hantavirus and is being treated in isolation.",
+  exposure: "Confirmed Andes hantavirus infection in a returned passenger."
+  },
     
   ];
 
@@ -540,13 +591,6 @@
     { color: "red", weight: 3, opacity: 0.8, dashArray: "4, 6" }
   );
 
-  // Evacuation/return routes from Cape Verde, now starting at airport instead of offshore ship point.
-  addPolyline(
-    [PRAIA_AIRPORT, NETHERLANDS],
-    "Reported medical evacuation route: Praia Airport → Netherlands",
-    { color: "#3388ff", weight: 2, opacity: 0.7, dashArray: "7, 7" }
-  );
-
   addPolyline(
     [PRAIA_AIRPORT, [47.3769, 8.5417]],
     "Returned Swiss patient / treatment node",
@@ -591,6 +635,22 @@
     "Planned quarantine transfer: Tenerife → Gómez Ulla Military Hospital (Madrid)",
     { color: "purple", weight: 2, opacity: 0.7, dashArray: "5, 7" }
   );
+
+  // Auto-fit map to all markers on load.
+  var bounds = L.latLngBounds([]);
+  points.forEach(function(p) {
+    bounds.extend([p.lat, p.lon]);
+  });
+  map_2805219d0e9f5a6b75bd5d8e74c1f521.fitBounds(bounds, {
+    padding: [60, 60],
+    maxZoom: 3
+  });
+  
+  // iPhone / narrow-screen adjustment
+  if (window.innerWidth < 700) {
+    map_2805219d0e9f5a6b75bd5d8e74c1f521.setView([5, -5], 1.5);
+  }
+  var legend = L.control({ position: "bottomleft" });
   
   var legend = L.control({ position: "bottomleft" });
   legend.onAdd = function () {
