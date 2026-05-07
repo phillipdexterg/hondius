@@ -77,15 +77,46 @@
   tile_layer_b0288f4d114c5205231960e8241b9f70.addTo(map_2805219d0e9f5a6b75bd5d8e74c1f521);
 
   function markerColor(kind) {
-    if (kind.includes("fatality") || kind.includes("case_disembarkation") || kind.includes("confirmed_case")) return "red";
-    if (kind.includes("recent_argentina") || kind.includes("regional")) return "darkred";
-    if (kind.includes("medical") || kind.includes("suspected") || kind.includes("offshore")) return "orange";
+    kind = kind.toLowerCase();  // normalize just in case
 
-    // 🔹 NEW: split these
-    if (kind.includes("monitoring")) return "purple";
-    if (kind.includes("planned")) return "blue";
+  // 🔴 Highest severity: confirmed / fatal / disembarkation cases
+    if (
+      kind.includes("fatality") ||
+      kind.includes("case_disembarkation") ||
+      kind.includes("confirmed_case")
+    ) return "red";
 
-    if (kind.includes("uninhabited") || kind.includes("research")) return "gray";
+  // 🔥 Regional outbreak context (Argentina cluster, etc.)
+    if (
+      kind.includes("recent_argentina") ||
+      kind.includes("regional")
+    ) return "darkred";
+
+  // 🟠 Active medical / suspected / ship-related response
+    if (
+      kind.includes("medical") ||
+      kind.includes("suspected") ||
+      kind.includes("offshore")
+    ) return "orange";
+
+  // 🟣 Monitoring / quarantine / returnees
+    if (
+      kind.includes("monitoring") ||
+      kind.includes("quarantine")
+    ) return "purple";
+
+  // 🔵 Planned / logistical (future movements)
+    if (
+      kind.includes("planned")
+    ) return "blue";
+
+  // ⚪ Remote / low-risk locations
+    if (
+      kind.includes("uninhabited") ||
+      kind.includes("research")
+    ) return "gray";
+
+  // 🔵 Default
     return "blue";
   }
 
