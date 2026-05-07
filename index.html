@@ -424,16 +424,62 @@
     date: "late 2026-05-06 / reported 2026-05-07",
     notes: "A 65-year-old German contact person from MV Hondius was transported here from Amsterdam Schiphol for precautionary clinical and infectious-disease evaluation.",
     exposure: "Monitoring node only. The person was reported stable, asymptomatic, and without confirmed hantavirus infection."
+  },
+  {
+  name: "Cerro Centinela / Esquel, Chubut, Argentina",
+  lat: -42.9145,
+  lon: -71.3195,
+  kind: "regional_argentina_prior_fatal_case_2026",
+  icon: "plus-sign",
+  date: "reported 2026-04-07",
+  notes: "A 15-year-old girl died from hantavirus as part of a confirmed family cluster in rural Chubut. She had been identified as a close contact of a previous case.",
+  exposure: "Regional Andes-virus activity node. Not linked to the MV Hondius outbreak; represents local endemic transmission in southern Argentina."
+  },
+  {
+  name: "Hijuelas, Valparaíso Region, Chile",
+  lat: -32.89689,
+  lon: -71.09625,
+  kind: "regional_argentina_prior_fatal_case_2026",
+  icon: "plus-sign",
+  date: "2026-03-24",
+  notes: "A 7-year-old girl died from hantavirus in Hijuelas, confirmed by Chilean health authorities. The case was investigated and treated as isolated.",
+  exposure: "Regional Andes-virus activity node. No additional cases reported; not linked to the MV Hondius outbreak."
+  },
+  {
+  name: "Cochamó area, Los Lagos Region, Chile",
+  lat: -41.4940,
+  lon: -72.3050,
+  kind: "regional_south_america_hantavirus_context",
+  icon: "plus-sign",
+  date: "symptoms began 2026-04-09 (reported 2026-04-17)",
+  notes: "A 22-year-old man from Puerto Montt contracted hantavirus after camping/excursion activity in the Cochamó area. He was hospitalized and later transferred to Santiago.",
+  exposure: "Environmental exposure in a rural endemic zone. Patient reported stable. Not linked to the MV Hondius outbreak."
+  },
+  {
+  name: "Australia (returnees - general)",
+  lat: -25.0,
+  lon: 133.0,
+  kind: "returned_passengers_monitoring",
+  icon: "plus-sign",
+  date: "reported 2026-05-06",
+  notes: "Passengers who disembarked MV Hondius at Saint Helena reportedly returned to Australia before being notified of possible exposure.",
+  exposure: "Generalized monitoring node; no confirmed cases publicly reported."
+  },
+  {
+  name: "Taiwan (returnees - general)",
+  lat: 23.6978,
+  lon: 120.9605,
+  kind: "returned_passengers_monitoring",
+  icon: "plus-sign",
+  date: "reported 2026-05-06",
+  notes: "Passengers who disembarked MV Hondius at Saint Helena reportedly returned to Taiwan prior to outbreak notification.",
+  exposure: "Generalized monitoring node; no confirmed cases publicly reported."
   }
+    
   ];
 
   points.forEach(addMarker);
 
-  var allCoords = points.map(p => [p.lat, p.lon]);
-  map_2805219d0e9f5a6b75bd5d8e74c1f521.fitBounds(allCoords, {
-    padding: [80, 80],   // controls how zoomed out it feels
-    maxZoom: 3           // prevents it from zooming in too much
-  });
   // Approximate MV Hondius ship route.
   var shipRoute = [
     [-54.8019, -68.3030],
