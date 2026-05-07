@@ -80,7 +80,11 @@
     if (kind.includes("fatality") || kind.includes("case_disembarkation") || kind.includes("confirmed_case")) return "red";
     if (kind.includes("recent_argentina") || kind.includes("regional")) return "darkred";
     if (kind.includes("medical") || kind.includes("suspected") || kind.includes("offshore")) return "orange";
-    if (kind.includes("planned") || kind.includes("monitoring")) return "purple";
+
+    // 🔹 NEW: split these
+    if (kind.includes("monitoring")) return "purple";
+    if (kind.includes("planned")) return "blue";
+
     if (kind.includes("uninhabited") || kind.includes("research")) return "gray";
     return "blue";
   }
@@ -337,6 +341,49 @@
       notes: "Two Georgia residents who had been aboard the MV Hondius were reported by health officials to be under monitoring after returning to the Atlanta area.",
       exposure: "Returnee-monitoring node; no confirmed infection or secondary transmission reported."
     },
+    {
+      name: "California, USA (returnees - general)",
+      lat: 36.7783,
+      lon: -119.4179,
+      kind: "returned_passengers_monitoring",
+      date: "reported May 2026",
+      icon: "plus-sign",
+      notes: "Reports indicate some MV Hondius passengers returned to California before hantavirus confirmation.",
+      exposure: "Generalized monitoring node; no confirmed cases or transmission publicly reported."
+    },
+
+    {
+      name: "Arizona, USA (returnees - general)",
+      lat: 34.0489,
+      lon: -111.0937,
+      kind: "returned_passengers_monitoring",
+      date: "reported May 2026",
+      icon: "plus-sign",
+      notes: "Passengers from the MV Hondius are reported to have returned to Arizona prior to outbreak identification.",
+      exposure: "Generalized monitoring node; no confirmed cases or transmission publicly reported."
+    },
+
+    {
+      name: "Texas, USA (returnees - general)",
+      lat: 31.9686,
+      lon: -99.9018,
+      kind: "returned_passengers_monitoring",
+      date: "reported May 2026",
+      icon: "plus-sign",
+      notes: "Passengers from the MV Hondius returned to Texas before hantavirus diagnosis was confirmed.",
+      exposure: "Generalized monitoring node; no confirmed cases or transmission publicly reported."
+    },
+
+    {
+      name: "Virginia, USA (returnees - general)",
+      lat: 37.4316,
+      lon: -78.6569,
+      kind: "returned_passengers_monitoring",
+      date: "reported May 2026",
+      icon: "plus-sign",
+      notes: "Passengers linked to the MV Hondius returned to Virginia and are part of broader monitoring efforts.",
+      exposure: "Generalized monitoring node; no confirmed cases or transmission publicly reported."
+    }
   ];
 
   points.forEach(addMarker);
